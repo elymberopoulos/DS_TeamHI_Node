@@ -1,8 +1,9 @@
 const outlet = require('./Outlets');
-class PowerStrip extends Device{
+const device = require('./Device');
+class PowerStrip extends device.Device{
 
     constructor(){
-        this.power = false;
+        super();
         this.outlets = new Array();
         for(var i = 0; i < 7; i ++){
             this.outlets.push(new outlet.Outlet())
