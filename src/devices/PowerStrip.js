@@ -1,12 +1,14 @@
 const outlet = require('./Outlets');
 const device = require('./Device');
+
 class PowerStrip extends device.Device{
 
     constructor(){
-        super();
-        this.outlets = new Array();
-        for(var i = 0; i < 7; i ++){
-            this.outlets.push(new outlet.Outlet())
+        super(); 
+        this.outlets = new Map();
+        
+        for(var i = 0; i < 7; i++){
+            this.outlets.set(i,false);
         }
     }
 
@@ -20,12 +22,10 @@ class PowerStrip extends device.Device{
     }
 
     showOutletStates(){
-        for(var i = 0; i < this.outlets.length; i++){
-            console.log(this.outlets[i]);
+        console.log("This device's power is " + this.power);
+        for(var i = 0; i < this.outlets.size; i++){
+            console.log('outlet ' + i + 'power is ' + this.outlets.get(i));
         }
     }
-    
-    
-
 }
 module.exports.PowerStrip = PowerStrip;
