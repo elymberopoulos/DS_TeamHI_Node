@@ -17,7 +17,7 @@ if (!fileSys.existsSync(storageDir)) {
             console.log(err);
             throw err;
         }
-        console.log('Folder created...');
+        console.log('Node Data-Persist Folder Created.');
 
     });
     storage.init({
