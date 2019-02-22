@@ -29,29 +29,5 @@ describe('Tests for the project devices', function () {
             }, "Error!");
         });
     })
-    describe('Tests for subclass PowerStrip.js', function () {
-        it('Power strips should have a map of 7 outlets', function () {
-            var testVal = new powerStrip.PowerStrip();
-            assert.equal(testVal.outlets.size, 7);
-        })
 
-        it('Test that power is initially off when constructed', function () {
-            var testVal = new powerStrip.PowerStrip();
-            assert.isFalse(testVal.power);
-        })
-
-        it("Test that turning on power strips power works", function(){
-            var testVal = new powerStrip.PowerStrip();
-            assert.isFalse(testVal.power);
-            testVal.setPower();
-            assert.isTrue(testVal.power);
-        })
-
-        it('Assert that all power strips are initially false', function () {
-            var testVal = new powerStrip.PowerStrip();
-            for (var i = 0; i < testVal.outlets.size; i++) {
-                assert.isFalse(testVal.outlets.get(i));
-            }
-        })
-    })
 })
