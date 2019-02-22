@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 const socket = dgram.createSocket('udp4');
 
 //INITIAL STORAGE FOR NODE DATA PERSIST
-var storageDir = __dirname + '/storage';
+var storageDir = __dirname + '/dataPersist';
 console.log("Storage location: " + storageDir);
 
 if (!fileSys.existsSync(storageDir)) {

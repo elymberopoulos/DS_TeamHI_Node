@@ -3,3 +3,5 @@ package-lock.json
 .nyc_output
 storage
 ./storage
+dataPersist
+dataPersist/devices
