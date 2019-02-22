@@ -4,7 +4,8 @@
   "description": "Team H.I. Distributed Systems Project",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "nyc mocha --recursive || true",
+    "dopeShit": "node index.js"
   },
   "author": "",
   "license": "ISC",
