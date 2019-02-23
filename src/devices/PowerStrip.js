@@ -5,6 +5,7 @@ class PowerStrip extends device.Device {
 
     constructor() {
         super();
+        this.description = "power strip";
         this.outlets = new Map();
 
         for (var i = 0; i < 7; i++) {

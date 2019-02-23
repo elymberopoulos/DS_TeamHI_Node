@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --recursive || true",
-    "dopeShit": "node index.js",
+    "start": "node index.js",
     "server": "node Server.js",
     "dev": "nodemon Server.js"
   },

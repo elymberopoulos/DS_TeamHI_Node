@@ -2,6 +2,7 @@ const device = require('./Device');
 class SmartLight extends device.Device {
     constructor() {
         super();
+        this.description = "light";
         this.brightness = 0;
     }
 
@@ -14,19 +15,5 @@ class SmartLight extends device.Device {
 
         }
     }
-
-    // setBrightness(value) {
-    //     if (value instanceof Number) {
-    //         if (value > 10 || value < 0) {
-    //             throw new Error("Invalid number");
-    //         }
-    //         else {
-    //             this.brightness = value;
-    //         }
-    //     }
-    //     else {
-    //         throw new Error('Error!');
-    //     }
-    // }
 }
 module.exports.SmartLight = SmartLight;

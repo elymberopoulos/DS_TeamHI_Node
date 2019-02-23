@@ -27,7 +27,7 @@ if (!fileSys.existsSync(storageDir)) {
         encoding: 'utf8',
         logging: false,
         ttl: false,
-        expiredInterval: 2 * 60 * 1000,
+        //expiredInterval: 2 * 60 * 1000,
         forgiveParseErrors: false
     })
 }
@@ -35,6 +35,7 @@ if (!fileSys.existsSync(storageDir)) {
 
 
 const server = express();
+
 socket.bind(port);
 
 server.listen(port), async err => {
@@ -43,15 +44,19 @@ server.listen(port), async err => {
     }
 }
 
-socket.on('message', function (msg, rinfo) {
-    console.log('I got this message: ' + msg.toString());
-    console.log('message address: ' + rinfo.address);
-    console.log('message port: ' + rinfo.port);
-
+server.on( "message", function( msg, rinfo ) {
+    console.log( rinfo.address + ':' + rinfo.port + ' - ' + msg );
+    server.send( msg, 0, msg.length, rinfo.port, rinfo.address );
 });
+
+// socket.on('message', function (msg, rinfo) {
+//     console.log('I got this message: ' + msg.toString());
+//     console.log('message address: ' + rinfo.address);
+//     console.log('message port: ' + rinfo.port);
+
+// });
 
 socket.on('listening', () => {
     const address = socket.address();
     console.log(`server listening ${address.address}:${address.port}`);
 });
-// storage.setItem('test', 'testValue')
