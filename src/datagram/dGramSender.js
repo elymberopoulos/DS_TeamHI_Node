@@ -1,6 +1,7 @@
-const dgram = require('dgram');
-const message = Buffer.from('Some bytes');
-const client = dgram.createSocket('udp4');
-client.send(message, 41234, 'localhost', (err) => {
-  client.close();
-});
+var dgram = require('dgram');
+
+function testSend() {
+  var s = dgram.createSocket('udp4');
+  s.send(Buffer.from('abc'), 3000, 'localhost');
+}
+module.exports.testSend = testSend;

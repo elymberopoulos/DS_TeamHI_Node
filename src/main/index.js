@@ -2,9 +2,7 @@ const readlineSync = require('readline-sync');
 const dgram = require('dgram');
 const add = require('../uiCommands/Commands')
 const connectionInfo = require('../datagram/ConnectionInfo');
-var s = dgram.createSocket('udp4');
-
-const rl = readlineSync.createInterface;
+const test = require('../datagram/dGramSender');
 
 const address = connectionInfo.getAddress();
 const port = connectionInfo.getPort();
@@ -32,15 +30,12 @@ function start() {
           showDeviceswstate()
           break;
         case "show device":
-          showDevices()
+          showDevices();
           break;
-        case "test send":
-          s.send(Buffer.from('abc'), 3000, 'localhost');
-          s.on('message', function (msg, rinfo) {
-            console.log('I got this message: ' + msg.toString());
-          });
-          s.bind(3000);
+        case "test":
+          test.testSend();
           break;
+
         case "exit":
           running = false;
           console.log("Program Ended");
@@ -55,8 +50,8 @@ function start() {
     }
   }
 }
-  module.exports = {
-    address: address,
-    port: port
-  }
-  start();
+module.exports = {
+  address: address,
+  port: port
+}
+start();
