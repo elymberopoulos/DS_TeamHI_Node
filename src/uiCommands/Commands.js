@@ -46,7 +46,6 @@ function AddDevice() {
         console.log(error);
         console.log("\nINVALID OPTION\n")
     }
-
 }
 module.exports = {
     AddDevice: AddDevice

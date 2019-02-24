@@ -3,34 +3,19 @@ const storage = require('node-persist');
 const path = require('path');
 const fileSys = require('fs');
 const dgram = require('dgram');
+const customStorage = require('./storageInit/Storage');
 
 const port = process.env.PORT || 3000;
 const socket = dgram.createSocket('udp4');
 
-//INITIAL STORAGE FOR NODE DATA PERSIST
-var storageDir = __dirname + '/dataPersist';
-console.log("Storage location: " + storageDir);
+customStorage.createStorageDirectories();
+customStorage.storageInit();
 
-if (!fileSys.existsSync(storageDir)) {
-    fileSys.mkdir(storageDir, {}, err => {
-        if (err) {
-            console.log(err);
-            throw err;
-        }
-        console.log('Node Data-Persist Folder Created.');
+const storageRoot = customStorage.storageDir;
+const powerStripDir = customStorage.powerStripDir;
+const lightsDir = customStorage.lightDir;
 
-    });
-    storage.init({
-        dir: storageDir,
-        stringify: JSON.stringify,
-        parse: JSON.parse,
-        encoding: 'utf8',
-        logging: false,
-        ttl: false,
-        //expiredInterval: 2 * 60 * 1000,
-        forgiveParseErrors: false
-    })
-}
+
 /////////////////////////////////////////
 
 
@@ -44,9 +29,9 @@ server.listen(port), async err => {
     }
 }
 
-server.on( "message", function( msg, rinfo ) {
-    console.log( rinfo.address + ':' + rinfo.port + ' - ' + msg );
-    server.send( msg, 0, msg.length, rinfo.port, rinfo.address );
+server.on("message", function (msg, rinfo) {
+    console.log(rinfo.address + ':' + rinfo.port + ' - ' + msg);
+    server.send(msg, 0, msg.length, rinfo.port, rinfo.address);
 });
 
 // socket.on('message', function (msg, rinfo) {
