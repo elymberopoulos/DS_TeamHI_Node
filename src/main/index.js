@@ -1,16 +1,19 @@
-
 const readlineSync = require('readline-sync');
 const dgram = require('dgram');
-const add = require('./src/uiCommands/Commands')
+const add = require('../uiCommands/Commands')
+const connectionInfo = require('../datagram/ConnectionInfo');
 var s = dgram.createSocket('udp4');
 
 const rl = readlineSync.createInterface;
 
+const address = connectionInfo.getAddress();
+const port = connectionInfo.getPort();
+console.log("ADDRESS: " + address + " PORT: " + port);
 
 function start() {
-  try {
-    var running = true;
-    while (running) {
+  var running = true;
+  while (running) {
+    try {
       var ans = readlineSync.question("What would you like to do? Type help for options\n");
       switch (ans) {
         case "add device":
@@ -43,16 +46,17 @@ function start() {
           console.log("Program Ended");
           break;
         default:
-          console.log("Invalid Input")
+          console.log("Invalid Input");
       }
-    };
-  } catch (error) {
-    console.log(error);
+    }
+    catch (error) {
+      console.log(error);
+      console.log("\n\nINVALID COMMAND\n\n");
+    }
   }
 }
-start();
-
-
-
-
-
+  module.exports = {
+    address: address,
+    port: port
+  }
+  start();
