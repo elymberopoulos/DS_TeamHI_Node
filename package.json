@@ -7,7 +7,7 @@
     "test": "nyc mocha --recursive || true",
     "start": "node ./src/main/index.js",
     "server": "node ./server/Server.js",
-    "dev": "nodemon Server.js"
+    "dev": "nodemon ./server/Server.js"
   },
   "author": "",
   "license": "ISC",
