@@ -1,57 +1,42 @@
 const readlineSync = require('readline-sync');
-const dgram = require('dgram');
-const add = require('../uiCommands/Commands')
+const commandLoop = require('../uiCommands/SwitchLoop');
 const connectionInfo = require('../datagram/ConnectionInfo');
-const test = require('../datagram/dGramSender');
+const net = require('net');
 
 const address = connectionInfo.getAddress();
 const port = connectionInfo.getPort();
 console.log("ADDRESS: " + address + " PORT: " + port);
 
-function start() {
-  var running = true;
-  while (running) {
-    try {
-      var ans = readlineSync.question("What would you like to do? Type help for options\n");
-      switch (ans) {
-        case "add device":
-          add.AddDevice();
-          break;
-        case "remove device":
-          removeDevice()
-          break;
-        case "manage device":
-          sayHello()
-          break;
-        case "move device":
-          moveDevice();
-          break;
-        case "show device with state":
-          showDeviceswstate()
-          break;
-        case "show device":
-          showDevices();
-          break;
-        case "test":
-          test.testSend();
-          break;
 
-        case "exit":
-          running = false;
-          console.log("Program Ended");
-          break;
-        default:
-          console.log("Invalid Input");
-      }
-    }
-    catch (error) {
-      console.log(error);
-      console.log("\n\nINVALID COMMAND\n\n");
-    }
-  }
-}
+/*
+This is a recursive loop that repeatedly waits for commands to be sent to the specified server port.
+Command modules are in the uiCommands folder and SwitchLoop.js is used to determine a command input path
+and return a string value device to be sent over TCP.
+*/
+var loopConnection = function () {
+  var client = new net.Socket();
+  var ans = readlineSync.question("What would you like to do? Type help for options\n");
+  var commandToPost = commandLoop.Start(ans);
+  client.connect(port, function () {
+    console.log('CONNECTED TO Port ' + port);
+    client.write(commandToPost);
+  });
+
+  client.on('data', function (data) {
+    console.log('DATA: ' + data);
+    client.destroy();
+  });
+
+  client.on('close', function () {
+    setTimeout(function () {
+      loopConnection(); // restart again
+    }, 500);
+  });
+};
+
+loopConnection();
+
 module.exports = {
   address: address,
   port: port
 }
-start();
