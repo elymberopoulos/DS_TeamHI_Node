@@ -21,6 +21,7 @@
     "dgram": "^1.0.1",
     "express": "^4.16.4",
     "node-persist": "^3.0.4",
-    "readline-sync": "^1.4.9"
+    "readline-sync": "^1.4.9",
+    "uuid": "^3.3.2"
   }
 }

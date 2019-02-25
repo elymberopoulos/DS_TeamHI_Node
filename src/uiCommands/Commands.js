@@ -1,6 +1,8 @@
 const light = require('../devices/SmartLight');
 const powerStrip = require('../devices/PowerStrip');
+const jsonInvoker = require('../devices/DeviceJSON')
 const readlineSync = require('readline-sync');
+const key = require('uuid/v1')
 
 
 function AddDevice() {
@@ -10,13 +12,12 @@ function AddDevice() {
             ////////////////////////////////////////////////////////////////////////
             case 'light':
                 try {
-                    var keyName = readlineSync.question("Device key name?\n");
-                    var storeLocation = readlineSync.question("What is the storage location name?\n")
+                    var keyName = key();
+                    console.log(keyName);
+                    var storeLocation = readlineSync.question("What is the storage location name?\n");
                     let device = new light.SmartLight();
-
-                    let deviceJSON = JSON.stringify(device);
-                    console.log(device);
-                    console.log(deviceJSON);
+                    jsonInvoker.setJSONObject(JSON.stringify(device));
+                    console.log(jsonInvoker.getJSONObject());
                 } catch (error) {
                     console.log(error);
                     console.log("\nINVALID OPTION\n")
@@ -29,10 +30,7 @@ function AddDevice() {
                     var keyName = readlineSync.question("Device key name?\n");
                     var storeLocation = readlineSync.question("What is the storage location name?\n")
                     let device = new powerStrip.PowerStrip();
-    
                     let deviceJSON = JSON.stringify(device);
-                    console.log(device);
-                    console.log(deviceJSON);
                 } catch (error) {
                     console.log(error);
                     console.log("\nINVALID OPTION\n")

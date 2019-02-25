@@ -1,4 +1,5 @@
 const net = require('net');
+const deviceType = require('../devices/DeviceJSON')
 /*const options = {
 
   port: 9090
@@ -16,9 +17,9 @@ var loopConnection = function() {
 
     var client = new net.Socket();
 
-    client.connect(9090, function() {
-        console.log('CONNECTED TO Port ' + 9090);
-        client.write('data');
+    client.connect(3000, function() {
+        console.log('CONNECTED TO Port ' + 3000);
+        client.write(deviceType.getJSONObject());
     });
 
     client.on('data', function(data) {

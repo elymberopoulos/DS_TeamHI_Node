@@ -3,6 +3,7 @@ const dgram = require('dgram');
 const add = require('../uiCommands/Commands')
 const connectionInfo = require('../datagram/ConnectionInfo');
 const test = require('../datagram/dGramSender');
+const commands = require('../uiCommands/Commands')
 
 const address = connectionInfo.getAddress();
 const port = connectionInfo.getPort();
@@ -15,7 +16,7 @@ function start() {
       var ans = readlineSync.question("What would you like to do? Type help for options\n");
       switch (ans) {
         case "add device":
-          add.AddDevice();
+          commands.AddDevice();
           break;
         case "remove device":
           removeDevice()
