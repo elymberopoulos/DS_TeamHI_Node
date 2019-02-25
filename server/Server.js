@@ -4,13 +4,17 @@ const customStorage = require('./storageInit/Storage');
 const port = process.env.PORT || 3000;
 const net = require('net');
 const readWrite = require('./storageInit/ReadWrite');
+const maps = require('./storageInit/LightandPowerMaps');
 
 customStorage.createStorageDirectories();
-customStorage.storageInit();
+// customStorage.storageInit();
 
 const storageRoot = customStorage.storageDir;
 const powerStripDir = customStorage.powerStripDir;
 const lightsDir = customStorage.lightDir;
+
+var lightMap = maps.lightMap;
+var powerStripMap = maps.powerStripMap;
 
 /*
 IN ADD DEVICE UNDER THE UICOMMANDS PACKAGE A SERVER SIDE COMMAND IS PREPENDED TO THE STRING
@@ -29,11 +33,13 @@ const server = net.createServer(conn => {
             try {
                 switch (split[0]) {
                     case 'add light':
-                        readWrite.WriteToLights(split[1]);
+                        lightMap.set(split[1], split[2]);
+                        console.log(lightMap.entries());
                         break;
 
                     case 'add power strip':
-                        readWrite.WriteToPowerStrips(split[1]);
+                        powerStripMap.set(split[1], split[2]);
+                        console.log(powerStripMap.entries());
                         break;
 
                     default:

@@ -1,5 +1,3 @@
-const timer = require('./timer/Timer');
-
 class Device{
 
     constructor(){   
