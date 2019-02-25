@@ -1,8 +1,6 @@
-const express = require('express');
 const storage = require('node-persist');
 const path = require('path');
 const fileSys = require('fs');
-const dgram = require('dgram');
 
 
 //INITIAL STORAGE FOR NODE DATA PERSIST
@@ -45,6 +43,7 @@ async function createStorageDirectories() {
         });
     }
 }
+
 function storageInit() {
     storage.init({
         dir: storageDir,

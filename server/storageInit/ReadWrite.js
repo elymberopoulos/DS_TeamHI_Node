@@ -1,7 +1,13 @@
 const fs = require('fs');
 const storage = require('./Storage');
 const lightsTXT = storage.lightDir + '/lights.txt';
-const powerStripsTXT = storage.lightDir + '/powerstrips.txt';
+const powerStripsTXT = storage.powerStripDir + '/powerstrips.txt';
+
+
+/*
+These functions are used to read and write to and from the different directories and
+files that belong to Node's data persistance.
+*/
 
 async function WriteToLights(x) {
     var data = x + '\n';
@@ -72,7 +78,7 @@ module.exports = {
 }
 
 
-// WriteToLights('a');
-// WriteToPowerStrips('xxx');
-ReadFromLights();
-ReadFromPowerStrips();
+WriteToLights('');
+WriteToPowerStrips('');
+// ReadFromLights();
+// ReadFromPowerStrips();

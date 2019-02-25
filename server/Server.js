@@ -1,11 +1,9 @@
 const express = require('express');
 const storage = require('node-persist');
-const path = require('path');
-const fileSys = require('fs');
-const dgram = require('dgram');
 const customStorage = require('./storageInit/Storage');
 const port = process.env.PORT || 3000;
-const socket = dgram.createSocket('udp4');
+const net = require('net');
+const readWrite = require('./storageInit/ReadWrite');
 
 customStorage.createStorageDirectories();
 customStorage.storageInit();
@@ -14,30 +12,38 @@ const storageRoot = customStorage.storageDir;
 const powerStripDir = customStorage.powerStripDir;
 const lightsDir = customStorage.lightDir;
 
-/////////////////////////////////////////
-
-// const server = express();
-
-// socket.on('message', function (msg, rinfo) {
-//     console.log('I got this message: ' + msg.toString());
-//     console.log('message address: ' + rinfo.address);
-//     console.log('message port: ' + rinfo.port);
-
-// });
-
-// socket.on('listening', () => {
-//     const address = socket.address();
-//     console.log(`socket server listening ${address.address}:${address.port}`);
-// });
-
-// socket.bind(3000);
-
-const net = require('net');
-
+/*
+IN ADD DEVICE UNDER THE UICOMMANDS PACKAGE A SERVER SIDE COMMAND IS PREPENDED TO THE STRING
+TO BE SENT OVER TCP. THE SERVER SPLITS ON '=' AND USES A SWITCH TO CHOOSE AN ACTION. INDEX 0 IS
+THE COMMAND AND INDEX 1 IS THE VALUE.
+*/
 const server = net.createServer(conn => {
-    console.log('new client');
+    console.log('new client request');
 
     conn.on('data', data => {
+        let dataString = data.toString();
+        console.log(dataString);
+        let split = dataString.split('=');
+
+        if (data !== null) {
+            try {
+                switch (split[0]) {
+                    case 'add light':
+                        readWrite.WriteToLights(split[1]);
+                        break;
+
+                    case 'add power strip':
+                        readWrite.WriteToPowerStrips(split[1]);
+                        break;
+
+                    default:
+                        break;
+                }
+            } catch (error) {
+
+            }
+        }
+
         conn.write("DATA RETURN " + data + '\r\n');
     });
 
@@ -46,4 +52,4 @@ const server = net.createServer(conn => {
     });
 });
 
-server.listen(9090);
+server.listen(port);
