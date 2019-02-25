@@ -18,16 +18,32 @@ const lightsDir = customStorage.lightDir;
 
 // const server = express();
 
-socket.on('message', function (msg, rinfo) {
-    console.log('I got this message: ' + msg.toString());
-    console.log('message address: ' + rinfo.address);
-    console.log('message port: ' + rinfo.port);
+// socket.on('message', function (msg, rinfo) {
+//     console.log('I got this message: ' + msg.toString());
+//     console.log('message address: ' + rinfo.address);
+//     console.log('message port: ' + rinfo.port);
 
+// });
+
+// socket.on('listening', () => {
+//     const address = socket.address();
+//     console.log(`socket server listening ${address.address}:${address.port}`);
+// });
+
+// socket.bind(3000);
+
+const net = require('net');
+
+const server = net.createServer(conn => {
+    console.log('new client');
+
+    conn.on('data', data => {
+        conn.write("DATA RETURN " + data + '\r\n');
+    });
+
+    conn.on('end', () => {
+        console.log('client left');
+    });
 });
 
-socket.on('listening', () => {
-    const address = socket.address();
-    console.log(`socket server listening ${address.address}:${address.port}`);
-});
-
-socket.bind(3000);
+server.listen(9090);

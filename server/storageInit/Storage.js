@@ -10,9 +10,9 @@ const storageDir = __dirname + '/dataPersist';
 const lightDir = __dirname + '/dataPersist/lights';
 const powerStripDir = __dirname + '/dataPersist/powerStrips';
 
-function createStorageDirectories() {
-    if (!fileSys.existsSync(storageDir)) {
-        fileSys.mkdir(storageDir, {}, err => {
+async function createStorageDirectories() {
+    if(!fileSys.existsSync(storageDir)) {
+        await fileSys.mkdir(storageDir, {}, err => {
             if (err) {
                 console.log(err);
                 throw err;
@@ -22,8 +22,9 @@ function createStorageDirectories() {
         });
 
     }
+
     if (!fileSys.existsSync(lightDir)) {
-        fileSys.mkdir(lightDir, {}, err => {
+        await fileSys.mkdir(lightDir, {}, err => {
             if (err) {
                 console.log(err);
                 throw err;
@@ -32,8 +33,9 @@ function createStorageDirectories() {
 
         });
     }
+
     if (!fileSys.existsSync(powerStripDir)) {
-        fileSys.mkdir(powerStripDir, {}, err => {
+        await fileSys.mkdir(powerStripDir, {}, err => {
             if (err) {
                 console.log(err);
                 throw err;
