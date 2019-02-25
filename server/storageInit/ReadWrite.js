@@ -11,7 +11,7 @@ files that belong to Node's data persistance.
 
 async function WriteToLights(x) {
     var data = x + '\n';
-    await fs.open(lightsTXT, 'as', (err, data) => {
+    await fs.open(lightsTXT, 'w', (err, data) => {
         if (err) {
             if (err.code === 'EEXIST') {
                 console.error('lights.txt already exists');
@@ -42,7 +42,7 @@ function ReadFromLights(){
 
 async function WriteToPowerStrips(x) {
     var data = x + '\n';
-    await fs.open(powerStripsTXT, 'as', (err, data) => {
+    await fs.open(powerStripsTXT, 'w', (err, data) => {
         if (err) {
             if (err.code === 'EEXIST') {
                 console.error('lights.txt already exists');
@@ -76,9 +76,3 @@ module.exports = {
     WriteToPowerStrips: WriteToPowerStrips,
     ReadFromPowerStrips: ReadFromPowerStrips
 }
-
-
-WriteToLights('');
-WriteToPowerStrips('');
-// ReadFromLights();
-// ReadFromPowerStrips();

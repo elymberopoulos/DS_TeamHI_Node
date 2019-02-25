@@ -15,7 +15,7 @@ function AddDevice() {
                     let device = new light.SmartLight();
 
                     let deviceJSON = JSON.stringify(device);
-                    var result = "add light=" + deviceJSON;
+                    var result = "add light=" + keyName + "=" + deviceJSON;
                     console.log(device);
                     console.log(deviceJSON);
                     return result;

@@ -1,6 +1,6 @@
 const readlineSync = require('readline-sync');
 const commandLoop = require('../uiCommands/SwitchLoop');
-const connectionInfo = require('../datagram/ConnectionInfo');
+const connectionInfo = require('../connectionInfo/ConnectionInfo');
 const net = require('net');
 
 const address = connectionInfo.getAddress();
