@@ -2,8 +2,9 @@
 const customStorage = require('./storageInit/Storage');
 const port = process.env.PORT || 3000;
 const net = require('net');
-const readWrite = require('./storageInit/ReadWrite');
-const maps = require('./storageInit/LightandPowerMaps');
+// const readWrite = require('./storageInit/ReadWrite');
+const mapsReadWrite = require('./storageInit/LightandPowerMaps');
+const powerSwitch = require('./serverFunctions/SwitchPower');
 
 customStorage.createStorageDirectories();
 // customStorage.storageInit();
@@ -12,30 +13,14 @@ const storageRoot = customStorage.storageDir;
 const powerStripDir = customStorage.powerStripDir;
 const lightsDir = customStorage.lightDir;
 
-var lightMap = maps.lightMap;
-var powerStripMap = maps.powerStripMap;
+var lightMap = mapsReadWrite.lightMap;
+var powerStripMap = mapsReadWrite.powerStripMap;
 
-/////////////////////////////////
-/*
-These functions copy the current key value pairs to the .txt files.
-Use these if a value is ever changed or new entry added.
-*/
-function copyMapToLightStorage() {
-    for (const entry of lightMap.entries()) {
-        readWrite.WriteToLights(entry[0] + '=' + entry[1]);
-    }
-}
-function copyMapToPowerStripStorage() {
-    for (const entry of powerStripMap.entries()) {
-        readWrite.WriteToPowerStrips(entry[0] + '=' + entry[1]);
-    }
-}
-/////////////////////////////////
 
 /*
 IN ADD DEVICE UNDER THE UICOMMANDS PACKAGE A SERVER SIDE COMMAND IS PREPENDED TO THE STRING
 TO BE SENT OVER TCP. THE SERVER SPLITS ON '=' AND USES A SWITCH TO CHOOSE AN ACTION. INDEX 0 IS
-THE COMMAND AND INDEX 1 IS THE VALUE.
+THE COMMAND AND INDEX 1 AND 2 ARE KEY/VALLUES PAIRS.
 */
 
 const server = net.createServer(conn => {
@@ -55,7 +40,8 @@ const server = net.createServer(conn => {
                         lightMap.set(split[1], split[2]);
 
                         //OVERWRITE VALUES IN THE NODE DATA PERSIST
-                        copyMapToLightStorage();
+                        //IN LIGHTS AND POWER MAPS.js
+                        mapsReadWrite.copyMapToLightStorage();
                         console.log(lightMap.entries());
                         break;
 
@@ -63,23 +49,22 @@ const server = net.createServer(conn => {
                         powerStripMap.set(split[1], split[2]);
 
                         //OVERWRITE VALUES IN THE NODE DATA PERSIST
-                        copyMapToPowerStripStorage();
+                        //IN LIGHTS AND POWER MAPS.js
+                        mapsReadWrite.copyMapToPowerStripStorage();
                         console.log(powerStripMap.entries());
                         break;
 
                     case 'switch power':
-
+                        //Switch power functions are in serverFunctions directory
                         var key = split[1];
                         if (lightMap.has(key)) {
-                            var stringValue = JSON.stringify(lightMap.get(key));
-
-                            if (stringValue.includes('false')) {
-                                let newVal = stringValue.replace('false', 'true');
-                                lightMap.set(key, newVal);
-                                copyMapToLightStorage();
-                                console.log("NEW VALUE: " + lightMap.get(key));
-                            }
+                            powerSwitch.SwitchLightPower(key);
                         }
+
+                        else if (powerStripMap.has(key)) {
+                            powerSwitch.SwitchPowerStripPower(key);
+                        }
+
                         break;
                     default:
                         break;

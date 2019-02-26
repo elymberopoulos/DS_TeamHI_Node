@@ -40,7 +40,8 @@ function Start(ans) {
                 console.log("Program Ended");
                 break;
             default:
-                console.log("Invalid Input");
+                console.log("\nINVALID COMMAND\n");
+                return "-1";
         }
     }
     catch (error) {
