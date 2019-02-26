@@ -18,11 +18,19 @@ var loopConnection = function () {
     var client = new net.Socket();
     var ans = readlineSync.question("What would you like to do? Type help for options\n");
     var commandToPost = commandLoop.Start(ans);
-    client.connect(port, function () {
-      console.log('CONNECTED TO Port ' + port);
-      client.write(commandToPost);
-    });
-  
+
+    //IF statement and recursion for robustness.
+    //Value sent to server is only done if a valid command is returned
+    if (commandToPost !== '-1' || commandToPost !== 'help') {
+      client.connect(port, function () {
+        console.log('CONNECTED TO Port ' + port);
+        client.write(commandToPost);
+      });
+    }
+    else{
+      loopConnection();
+    }
+
     client.on('data', function (data) {
       console.log('DATA: ' + data);
       client.destroy();

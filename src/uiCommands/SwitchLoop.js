@@ -1,6 +1,7 @@
 const readlineSync = require('readline-sync');
 const commands = require('./AddRemoveETC/AddDevice');
 const powerSwitch = require('./AddRemoveETC/SwitchPower');
+const help = require('./AddRemoveETC/UIHelper');
 
 /*
 This is the main command loop that is imported into index.js.
@@ -34,13 +35,16 @@ function Start(ans) {
             case "switch power":
                 return powerSwitch.SwitchPower();
                 break;
-
+            case "help":
+                return help.uiHelp();
+                break;
             case "exit":
                 running = false;
                 console.log("Program Ended");
                 break;
             default:
-                console.log("Invalid Input");
+                console.log("\nINVALID COMMAND\n");
+                return "-1";
         }
     }
     catch (error) {
