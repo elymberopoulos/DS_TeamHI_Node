@@ -5,16 +5,22 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --recursive || true",
-    "dopeShit": "node index.js"
+    "start": "node ./src/main/index.js",
+    "server": "node ./server/Server.js",
+    "dev": "nodemon ./server/Server.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.0.1",
+    "nodemon": "^1.18.10",
     "nyc": "^13.3.0"
   },
   "dependencies": {
+    "dgram": "^1.0.1",
+    "express": "^4.16.4",
+    "node-persist": "^3.0.4",
     "readline-sync": "^1.4.9"
   }
 }

@@ -24,9 +24,10 @@ describe('Tests for the project devices', function () {
         });
         it('Test that the light class throws an error if incorrect brightness type submitted', function () {
             var testVal = new light.SmartLight();
-            defaultAssert.throws(() => {
-                testVal.setBrightness('k');
-            }, 'Error!');
+            assert.throws(() => {
+                testVal.setBrightness('key');
+            }, "Error!");
         });
     })
+
 })

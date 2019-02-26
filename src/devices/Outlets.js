@@ -1,3 +1,5 @@
+
+//This class is currently not in use.
 class Outlet{
 
     constructor(){
@@ -13,4 +15,5 @@ class Outlet{
         }
     }
 }
+
 module.exports.Outlet = Outlet;

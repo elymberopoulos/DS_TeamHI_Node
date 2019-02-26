@@ -1,16 +1,18 @@
 const device = require('./Device');
-class SmartLight extends device.Device{
-    constructor(){
+class SmartLight extends device.Device {
+    constructor() {
         super();
+        this.description = "light";
         this.brightness = 0;
     }
 
-    setBrightness(value){
-        if(!value instanceof Number){
-            throw new Error("Error!");
-        }
-        else{
+    setBrightness(value) {
+        if (typeof value == 'number') {
             this.brightness = value;
+        }
+        else {
+            throw new Error('Error!');
+
         }
     }
 }
