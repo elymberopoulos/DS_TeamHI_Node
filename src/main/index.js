@@ -14,18 +14,24 @@ Command modules are in the uiCommands folder and SwitchLoop.js is used to determ
 and return a string value device to be sent over TCP.
 */
 var loopConnection = function () {
-  var client = new net.Socket();
-  var ans = readlineSync.question("What would you like to do? Type help for options\n");
-  var commandToPost = commandLoop.Start(ans);
-  client.connect(port, function () {
-    console.log('CONNECTED TO Port ' + port);
-    client.write(commandToPost);
-  });
+  try {
+    var client = new net.Socket();
+    var ans = readlineSync.question("What would you like to do? Type help for options\n");
+    var commandToPost = commandLoop.Start(ans);
+    client.connect(port, function () {
+      console.log('CONNECTED TO Port ' + port);
+      client.write(commandToPost);
+    });
+  
+    client.on('data', function (data) {
+      console.log('DATA: ' + data);
+      client.destroy();
+    });
+  } catch (error) {
+    console.log("CONNECTION ERROR");
+    console.log(error);
+  }
 
-  client.on('data', function (data) {
-    console.log('DATA: ' + data);
-    client.destroy();
-  });
 
   client.on('close', function () {
     setTimeout(function () {

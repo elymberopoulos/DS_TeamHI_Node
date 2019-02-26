@@ -1,5 +1,13 @@
 const readlineSync = require('readline-sync');
 const commands = require('./AddRemoveETC/AddDevice');
+const powerSwitch = require('./AddRemoveETC/SwitchPower');
+
+/*
+This is the main command loop that is imported into index.js.
+The command is entered as an argument in index.js and is read here.
+A concatenated string is returned and sent through the socket and is
+spliced into its respective pieces on the server.
+*/
 
 function Start(ans) {
     try {
@@ -23,8 +31,8 @@ function Start(ans) {
             case "show device":
                 showDevices();
                 break;
-            case "test":
-                test.testSend();
+            case "switch power":
+                return powerSwitch.SwitchPower();
                 break;
 
             case "exit":

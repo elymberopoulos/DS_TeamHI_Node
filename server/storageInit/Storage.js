@@ -4,6 +4,8 @@ const fileSys = require('fs');
 
 
 //INITIAL STORAGE FOR NODE DATA PERSIST
+
+//These variables establish the folder locations for storage and are exported for use in ReadWrite.js
 const storageDir = __dirname + '/dataPersist';
 const lightDir = __dirname + '/dataPersist/lights';
 const powerStripDir = __dirname + '/dataPersist/powerStrips';
