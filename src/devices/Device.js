@@ -10,7 +10,7 @@ class Device{
         }
         else {
             console.log("Timer started at " + new Date());
-            this.device
+            this.device;
             return new Promise((resolve, reject) => {
 
                 setTimeout(() => {

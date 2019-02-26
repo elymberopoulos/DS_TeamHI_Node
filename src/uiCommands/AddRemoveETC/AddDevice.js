@@ -33,9 +33,9 @@ function AddDevice() {
                     let device = new powerStrip.PowerStrip();
 
                     let deviceJSON = JSON.stringify(device);
-                    var result = "add power strip=" + deviceJSON;
+                    var result = "add power strip=" + keyName + "=" + deviceJSON;
                     console.log(device);
-                    console.log(deviceJSON);
+                    console.log("Result: " + result);
                     return result;
                 } catch (error) {
                     console.log(error);

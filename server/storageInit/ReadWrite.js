@@ -1,5 +1,6 @@
 const fs = require('fs');
 const storage = require('./Storage');
+
 const lightsTXT = storage.lightDir + '/lights.txt';
 const powerStripsTXT = storage.powerStripDir + '/powerstrips.txt';
 
@@ -33,7 +34,8 @@ function ReadFromLights(){
     fs.readFile(lightsTXT, {encoding: 'utf-8'}, function(err,data){
         if (!err) {
             console.log('received data: \n' + data);
-            return JSON.stringify(data);
+
+            return data;
         } else {
             console.log(err);
         }
@@ -63,7 +65,7 @@ function ReadFromPowerStrips(){
     fs.readFile(powerStripsTXT, {encoding: 'utf-8'}, function(err,data){
         if (!err) {
             console.log('received data: \n' + data);
-            return JSON.stringify(data);
+            return data;
         } else {
             console.log(err);
         }
@@ -76,3 +78,5 @@ module.exports = {
     WriteToPowerStrips: WriteToPowerStrips,
     ReadFromPowerStrips: ReadFromPowerStrips
 }
+
+// ReadFromLights();
