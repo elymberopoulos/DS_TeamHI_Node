@@ -7,7 +7,7 @@ function SwitchLightPower(key){
 
     if (stringValue.includes('false')) {
         let newVal = stringValue.replace('false', 'true');
-        lightMap.set(key, newVal);
+        lightMap.set(key, JSON.parse(newVal));
         mapsReadWrite.copyMapToLightStorage();
         console.log("NEW VALUE: " + lightMap.get(key));
     }
@@ -24,7 +24,7 @@ function SwitchPowerStripPower(key){
 
     if (stringValue.includes('false')) {
         let newVal = stringValue.replace('false', 'true');
-        powerStripMap.set(key, newVal);
+        powerStripMap.set(key, JSON.parse(newVal));
         mapsReadWrite.copyMapToPowerStripStorage();
         console.log("NEW VALUE: " + powerStripMap.get(key));
     }

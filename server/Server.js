@@ -1,10 +1,11 @@
 
 const customStorage = require('./storageInit/Storage');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const net = require('net');
-// const readWrite = require('./storageInit/ReadWrite');
 const mapsReadWrite = require('./storageInit/LightandPowerMaps');
 const powerSwitch = require('./serverFunctions/SwitchPower');
+const moveDevice = require('./serverFunctions/ServerMoveDevice');
+const removeDevice = require('./serverFunctions/ServerRemoveDevice');
 
 customStorage.createStorageDirectories();
 // customStorage.storageInit();
@@ -66,6 +67,20 @@ const server = net.createServer(conn => {
                         }
 
                         break;
+
+                    case 'move device':
+                        var key = split[1];
+                        var destination = split[2];
+                        if(destination === 'lights'){
+                            moveDevice.MoveToLights(key);
+                        }
+                        else if(destination === 'power strips'){
+                            moveDevice.MoveToPowerStrip(key);
+                        }
+
+                    case 'remove device':
+                        var key = split[1];
+                        removeDevice.ServerRemoveDevice(key);
                     default:
                         break;
 
@@ -83,5 +98,8 @@ const server = net.createServer(conn => {
         console.log('client left');
     });
 });
-
-server.listen(port);
+var serverOptions = {
+    host: 'localhost',
+    port: port
+}
+server.listen(serverOptions);

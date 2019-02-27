@@ -8,6 +8,8 @@ const powerStripsTXT = storage.powerStripDir + '/powerstrips.txt';
 /*
 These functions are used to read and write to and from the different directories and
 files that belong to Node's data persistance.
+
+Write functions are exported to LightsandPowerMaps.js
 */
 
 async function WriteToLights(x) {
@@ -73,10 +75,10 @@ function ReadFromPowerStrips(){
 }
 
 module.exports = {
-    WriteToLights: WriteToLights,
-    ReadFromLights: ReadFromLights,
-    WriteToPowerStrips: WriteToPowerStrips,
-    ReadFromPowerStrips: ReadFromPowerStrips
+    WriteToLights,
+    ReadFromLights,
+    WriteToPowerStrips,
+    ReadFromPowerStrips,
+    lightsTXT,
+    powerStripsTXT
 }
-
-// ReadFromLights();
