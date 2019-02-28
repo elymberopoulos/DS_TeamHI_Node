@@ -2,6 +2,8 @@ const readlineSync = require('readline-sync');
 const commands = require('./AddRemoveETC/AddDevice');
 const powerSwitch = require('./AddRemoveETC/SwitchPower');
 const help = require('./AddRemoveETC/UIHelper');
+const moveDevice = require('./AddRemoveETC/MoveDevice');
+const removeDevice = require('./AddRemoveETC/RemoveDevice');
 
 /*
 This is the main command loop that is imported into index.js.
@@ -18,13 +20,13 @@ function Start(ans) {
                 return commands.AddDevice();
                 break;
             case "remove device":
-                removeDevice()
+                return removeDevice.RemoveDevice();
                 break;
             case "manage device":
                 sayHello()
                 break;
             case "move device":
-                moveDevice();
+                return moveDevice.MoveDevice();
                 break;
             case "show device with state":
                 showDeviceswstate()
