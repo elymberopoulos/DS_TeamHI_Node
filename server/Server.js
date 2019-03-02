@@ -1,22 +1,13 @@
 
 const customStorage = require('./storageInit/Storage');
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const net = require('net');
-const mapsReadWrite = require('./storageInit/LightandPowerMaps');
 const powerSwitch = require('./serverFunctions/SwitchPower');
 const moveDevice = require('./serverFunctions/ServerMoveDevice');
-const removeDevice = require('./serverFunctions/ServerRemoveDevice');
 
-customStorage.createStorageDirectories();
-// customStorage.storageInit();
+const functions = require('./serverFunctions/NodePersistFunctions');
 
-const storageRoot = customStorage.storageDir;
-const powerStripDir = customStorage.powerStripDir;
-const lightsDir = customStorage.lightDir;
-
-var lightMap = mapsReadWrite.lightMap;
-var powerStripMap = mapsReadWrite.powerStripMap;
-
+customStorage.storageInit();
 
 /*
 IN ADD DEVICE UNDER THE UICOMMANDS PACKAGE A SERVER SIDE COMMAND IS PREPENDED TO THE STRING
@@ -30,76 +21,80 @@ const server = net.createServer(conn => {
     conn.on('data', data => {
 
         let dataString = data.toString();
-        console.log(dataString);
         let split = dataString.split('=');
+        var returnValue = 'blank';
 
-        if (data !== null) {
-            try {
-                switch (split[0]) {
+        try {
+            switch (split[0]) {
 
-                    case 'add light':
-                        lightMap.set(split[1], split[2]);
+                case 'add light':
+                    var key = split[1];
+                    var value = split[2];
+                    functions.setItem(key, value);
+                    console.log(key + value);
 
-                        //OVERWRITE VALUES IN THE NODE DATA PERSIST
-                        //IN LIGHTS AND POWER MAPS.js
-                        mapsReadWrite.copyMapToLightStorage();
-                        console.log(lightMap.entries());
-                        break;
+                    break;
 
-                    case 'add power strip':
-                        powerStripMap.set(split[1], split[2]);
+                case 'add power strip':
+                    var key = split[1];
+                    var value = split[2];
+                    functions.setItem(key, value);
+                    console.log(key + value);
 
-                        //OVERWRITE VALUES IN THE NODE DATA PERSIST
-                        //IN LIGHTS AND POWER MAPS.js
-                        mapsReadWrite.copyMapToPowerStripStorage();
-                        console.log(powerStripMap.entries());
-                        break;
+                    break;
 
-                    case 'switch power':
-                        //Switch power functions are in serverFunctions directory
-                        var key = split[1];
-                        if (lightMap.has(key)) {
-                            powerSwitch.SwitchLightPower(key);
-                        }
+                case 'switch power':
+                    //Switch power functions are in serverFunctions directory in NodePersistFunctions.js
+                    var key = split[1];
+                    powerSwitch.SwitchPower(key);
+                    break;
 
-                        else if (powerStripMap.has(key)) {
-                            powerSwitch.SwitchPowerStripPower(key);
-                        }
+                case 'move device':
+                    var key = split[1];
+                    var destination = split[2];
+                    if (destination === 'lights') {
+                        moveDevice.MoveToLights(key);
+                    }
+                    else if (destination === 'power strips') {
+                        moveDevice.MoveToPowerStrip(key);
+                    }
 
-                        break;
+                case 'remove device':
+                    var key = split[1];
+                    functions.removeItem(key);
 
-                    case 'move device':
-                        var key = split[1];
-                        var destination = split[2];
-                        if(destination === 'lights'){
-                            moveDevice.MoveToLights(key);
-                        }
-                        else if(destination === 'power strips'){
-                            moveDevice.MoveToPowerStrip(key);
-                        }
+                case 'get device':
 
-                    case 'remove device':
-                        var key = split[1];
-                        removeDevice.ServerRemoveDevice(key);
-                    default:
-                        break;
+                    var key = split[1];
+                    
+                    returnValue = promiseItem.then(value => {
+                        console.log(`RETURNVALUE value ${value}`);
+                        return value;
+                    })
 
-                }
-
-            } catch (error) {
+                    console.log('test = ' + returnValue);
+                    break;
+                default:
+                    break;
 
             }
+
+        } catch (error) {
+
         }
 
-        conn.write("DATA RETURN " + data + '\r\n');
+        conn.write("DATA FROM SERVER " + returnValue + '\r\n');
+
     });
 
     conn.on('end', () => {
-        console.log('client left');
     });
 });
+
+
 var serverOptions = {
     host: 'localhost',
     port: port
 }
 server.listen(serverOptions);
+console.log("Server on port " + port);

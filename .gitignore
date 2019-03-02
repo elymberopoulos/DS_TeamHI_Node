@@ -5,3 +5,4 @@ storage
 ./storage
 dataPersist
 dataPersist/devices
+.node-persist
