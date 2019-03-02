@@ -27,15 +27,17 @@ var loopConnection = function () {
         client.write(commandToPost);
       });
     }
-    else{
+    else {
       loopConnection();
     }
 
     client.on('data', function (data) {
-      console.log('DATA: ' + data);
+      console.log('PROMISE DATA: ' + data);
       client.destroy();
     });
-  } catch (error) {
+  }
+
+  catch (error) {
     console.log("CONNECTION ERROR");
     console.log(error);
   }
@@ -44,7 +46,7 @@ var loopConnection = function () {
   client.on('close', function () {
     setTimeout(function () {
       loopConnection(); // restart again
-    }, 500);
+    }, 250);
   });
 };
 
