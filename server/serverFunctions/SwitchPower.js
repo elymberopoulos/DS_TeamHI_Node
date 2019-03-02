@@ -1,42 +1,23 @@
 const mapsReadWrite = require('../storageInit/LightandPowerMaps');
-var lightMap = mapsReadWrite.lightMap;
-var powerStripMap = mapsReadWrite.powerStripMap;
+const dataPersist = require('../storageInit/Storage');
 
-function SwitchLightPower(key){
-    var stringValue = JSON.stringify(lightMap.get(key));
+var nodeStorage = dataPersist.storage;
 
-    if (stringValue.includes('false')) {
-        let newVal = stringValue.replace('false', 'true');
-        lightMap.set(key, JSON.parse(newVal));
-        mapsReadWrite.copyMapToLightStorage();
-        console.log("NEW VALUE: " + lightMap.get(key));
-    }
-    else if(stringValue.includes('true')){
-        let newVal = stringValue.replace('true', 'false');
-        lightMap.set(key, JSON.parse(newVal));
-        mapsReadWrite.copyMapToLightStorage();
-        console.log("NEW VALUE: " + lightMap.get(key));
-    }
-}
-
-function SwitchPowerStripPower(key){
-    var stringValue = JSON.stringify(powerStripMap.get(key));
+async function SwitchPower(key){
+    var stringValue = JSON.stringify(await nodeStorage.getItem(key));
 
     if (stringValue.includes('false')) {
         let newVal = stringValue.replace('false', 'true');
-        powerStripMap.set(key, JSON.parse(newVal));
-        mapsReadWrite.copyMapToPowerStripStorage();
-        console.log("NEW VALUE: " + powerStripMap.get(key));
+        await nodeStorage.setItem(key, JSON.parse(newVal));
+        console.log("NEW VALUE: " + await nodeStorage.getItem(key));
     }
     else if(stringValue.includes('true')){
         let newVal = stringValue.replace('true', 'false');
-        powerStripMap.set(key, JSON.parse(newVal));
-        mapsReadWrite.copyMapToPowerStripStorage();
-        console.log("NEW VALUE: " + powerStripMap.get(key));
+        await nodeStorage.setItem(key, JSON.parse(newVal));
+        console.log("NEW VALUE: " + await nodeStorage.getItem(key));
     }
 }
 
 module.exports = {
-    SwitchLightPower,
-    SwitchPowerStripPower
+    SwitchPower
 }

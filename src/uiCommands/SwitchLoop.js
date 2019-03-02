@@ -4,6 +4,7 @@ const powerSwitch = require('./AddRemoveETC/SwitchPower');
 const help = require('./AddRemoveETC/UIHelper');
 const moveDevice = require('./AddRemoveETC/MoveDevice');
 const removeDevice = require('./AddRemoveETC/RemoveDevice');
+const getDevice = require('./AddRemoveETC/GetDevice');
 
 /*
 This is the main command loop that is imported into index.js.
@@ -14,7 +15,7 @@ spliced into its respective pieces on the server.
 
 function Start(ans) {
     try {
-        
+
         switch (ans) {
             case "add device":
                 return commands.AddDevice();
@@ -28,8 +29,8 @@ function Start(ans) {
             case "move device":
                 return moveDevice.MoveDevice();
                 break;
-            case "show device with state":
-                showDeviceswstate()
+            case "get device":
+                return getDevice.GetDevice();
                 break;
             case "show device":
                 showDevices();
