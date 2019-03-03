@@ -64,3 +64,7 @@ exits the program
 # Running Program in Development mode 
 
 ### npm run dev
+
+# Project Abstract 
+
+The project aims to simulate a variety of devices whilst maintaining its state within the server. We do this through the use of node data persistency, dynamically populating a sub-directory with the devices state thus avoiding a central point of failure.
