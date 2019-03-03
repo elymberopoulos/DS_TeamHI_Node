@@ -28,16 +28,6 @@ remove device
   lights 
   
 ```
-
-# Move Device:
-```
-move device
-
-      Device key name?
-       key
-      What is the storage location name 'lights' or 'power strips'?
-      power strips
-```
 # Help:
 ```
 what would you like to do? Type help ofr options
