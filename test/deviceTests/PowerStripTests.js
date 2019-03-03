@@ -1,9 +1,5 @@
 const assert = require('chai').assert;
-const defaultAssert = require('assert');
-const device = require('../../src/devices/Device');
-const light = require('../../src/devices/SmartLight');
 const powerStrip = require('../../src/devices/PowerStrip');
-const outlet = require('../../src/devices/Outlets');
 
 describe('Tests for subclass PowerStrip.js', function () {
     it('Power strips should have a map of 7 outlets', function () {

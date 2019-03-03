@@ -3,8 +3,6 @@ const customStorage = require('./storageInit/Storage');
 const port = process.env.PORT || 3000;
 const net = require('net');
 const powerSwitch = require('./serverFunctions/SwitchPower');
-const moveDevice = require('./serverFunctions/ServerMoveDevice');
-
 const functions = require('./serverFunctions/NodePersistFunctions');
 
 customStorage.storageInit();
@@ -48,17 +46,7 @@ const server = net.createServer(conn => {
                     var key = split[1];
                     powerSwitch.SwitchPower(key);
                     break;
-
-                case 'move device':
-                    var key = split[1];
-                    var destination = split[2];
-                    if (destination === 'lights') {
-                        moveDevice.MoveToLights(key);
-                    }
-                    else if (destination === 'power strips') {
-                        moveDevice.MoveToPowerStrip(key);
-                    }
-
+                    
                 case 'remove device':
                     var key = split[1];
                     functions.removeItem(key);
@@ -66,12 +54,13 @@ const server = net.createServer(conn => {
                 case 'get device':
 
                     var key = split[1];
-                    
-                    returnValue = promiseItem.then(value => {
-                        console.log(`RETURNVALUE value ${value}`);
-                        return value;
-                    })
 
+                  var val = Promise.resolve(functions.getItem(key));  
+                  var returnValue = val.then(value => 
+                    {
+                        return value;
+                    });
+                            
                     console.log('test = ' + returnValue);
                     break;
                 default:

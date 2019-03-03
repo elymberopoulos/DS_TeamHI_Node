@@ -1,9 +1,6 @@
 const assert = require('chai').assert;
-const defaultAssert = require('assert');
 const device = require('../../src/devices/Device');
 const light = require('../../src/devices/SmartLight');
-const powerStrip = require('../../src/devices/PowerStrip');
-const outlet = require('../../src/devices/Outlets');
 
 describe('Tests for the project devices', function () {
     describe('Tests for the base class of Device.js', function () {

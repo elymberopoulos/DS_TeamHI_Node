@@ -1,4 +1,4 @@
-const outlet = require('./Outlets');
+
 const device = require('./Device');
 
 class PowerStrip extends device.Device {

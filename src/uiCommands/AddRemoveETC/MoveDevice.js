@@ -1,6 +1,6 @@
 const readlineSync = require('readline-sync');
 
-
+//Under Construction 
 function MoveDevice() {
     try {
         var keyName = readlineSync.question("Device key name?\n");

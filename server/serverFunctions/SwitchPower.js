@@ -1,4 +1,3 @@
-const mapsReadWrite = require('../storageInit/LightandPowerMaps');
 const dataPersist = require('../storageInit/Storage');
 
 var nodeStorage = dataPersist.storage;
