@@ -59,8 +59,8 @@ COLLECTION: 'power strips': {}
 ```
 # Help:
 ```
+what would you like to do? Type help ofr options
 help
-# Exit:
-```
-"Exits the program"
+VALID COMMANDS
+add device, switch power, remove device, move device
 ```
