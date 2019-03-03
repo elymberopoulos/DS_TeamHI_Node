@@ -54,6 +54,11 @@ key
 What is the storage location name?
 storage
 ```
+# Exit: 
+```
+exits the program
+
+```
 # Running Tests 
 
 ### npm run test 
