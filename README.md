@@ -5,16 +5,7 @@ set up the testing locally as root to avoid problems.
 
 
 ## Examples of usage:
-When running the application.  The user will see a command prompt with 'help
-```
-Type 'help' if needed.
-help
-<< This is the help menu >>
-VALID COMMANDS:
-	add device, remove device, move device, manage device
-	set timer, set schedule, show devices, show devices with state, cls, help, exit
-```
-
+When running the application. The user will have the following options
 # Add Device:
 ```
 add device
