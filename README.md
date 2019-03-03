@@ -56,16 +56,16 @@ storage
 ```
 # Running Tests 
 
-## npm run test 
+### npm run test 
 
 # Starting Program 
 
-## npm run start 
+### npm run start 
 
 # Booting Server 
 
-## npm run server 
+### npm run server 
 
 # Running Program in Development mode 
 
-## npm run dev
+### npm run dev
