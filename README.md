@@ -38,16 +38,6 @@ move device
       What is the storage location name 'lights' or 'power strips'?
       power strips
 ```
-
-# Show Devices:
-```
-show devices
-				<<<<<<<< CURRENT DEVICES >>>>>>>>>
-______________________________________________________________________
-COLLECTION: 'lights': {123=devices.SmartLight@6e0be858}
-COLLECTION: 'power strips': {}
-----------------------------------------------------------------------
-```
 # Help:
 ```
 what would you like to do? Type help ofr options
@@ -55,3 +45,27 @@ help
 VALID COMMANDS
 add device, switch power, remove device, move device
 ```
+# Switch Power:
+```
+What would you like to do? Type help for options.
+switch power
+Device key name? 
+key
+What is the storage location name?
+storage
+```
+# Running Tests 
+
+npm run test 
+
+# Starting Program 
+
+npm run start 
+
+# Booting Server 
+
+npm run server 
+
+# Running Program in Development mode 
+
+npm run dev
