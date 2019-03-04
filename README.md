@@ -1,3 +1,8 @@
+# Installation
+Ensure you have Node.js installed and it's path has been set correctly. After cloning the project type "npm i" in the root
+directory to install the dependencies for the project. The project's npm start, test and other scripts are at the bottom 
+of this page. To run one type "npm run test" for example in the terminal.
+
 ## Setting Up Implementations for Testing-
 set up the testing locally as root to avoid problems. 
 
